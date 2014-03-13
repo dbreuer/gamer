@@ -1,0 +1,470 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+$font-stack:    "Hammersmith One", sans-serif;
+
+$progress-background-color: #44c785;
+$progress-font-color: #c6eedb;
+$progress-font-secondary-color: #6ad29d;
+
+$main-background-color: #12aafd;
+$main-font-secondary-color: #3ebbff;
+
+$arena-background: #373737;
+$arena-head-background: #222222;
+$arena-main-background: #b64743;
+
+$arena-font-secondary-color: #666666;
+
+$arena-answer-color: #12aafd;
+
+$fb-button-color: #435f9b;
+$twitter-button-color: #4099FF;
+
+$leader-board-background: #ffbb11;
+
+body {
+
+}
+@mixin transition($transition-property, $transition-time, $method, $transition-delay) {
+  -webkit-transition: $transition-property $transition-time $method $transition-delay;
+  -moz-transition: $transition-property $transition-time $method $transition-delay;
+  -ms-transition: $transition-property $transition-time $method $transition-delay;
+  -o-transition: $transition-property $transition-time $method $transition-delay;
+  transition: $transition-property $transition-time $method $transition-delay;
+}
+@mixin animation($animate...) {
+  $max: length($animate);
+  $animations: '';
+
+  @for $i from 1 through $max {
+    $animations: #{$animations + nth($animate, $i)};
+
+    @if $i < $max {
+      $animations: #{$animations + ", "};
+    }
+  }
+  -webkit-animation: $animations;
+  animation:         $animations;
+}
+
+@mixin keyframes($animationName) {
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+  @keyframes #{$animationName} {
+    @content;
+  }
+}
+@include keyframes(slideinleft) {
+  0%   { margin-left: -300px; }
+  100% { margin-left: 0px; }
+}
+
+.slideinleft {
+  @include animation('slideinleft .5s 1');
+}
+
+@include keyframes(slideinleft-answer) {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.slideinleft-answer0 {
+  @include animation('slideinleft-answer 0.5s ease 0s forwards');
+}
+.slideinleft-answer1 {
+  @include animation('slideinleft-answer 0.5s ease 0.3s forwards');
+}
+.slideinleft-answer2 {
+  @include animation('slideinleft-answer 0.5s ease 0.6s forwards');
+}
+.slideinleft-answer3 {
+  @include animation('slideinleft-answer 0.5s ease 0.9s forwards');
+}
+#progress{
+  background: $progress-background-color;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+  top: 0px;
+  left: 0px;
+  @include transition(all, 2s, ease, 2s);
+  opacity: 1;
+  z-index: 999;
+
+  .inner {
+    color: $progress-font-color;
+    text-align: center;
+    vertical-align: middle;
+    width: 400px;
+    height: 300px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -200px;
+    margin-top: -150px;
+    i{}
+
+    h1 {
+      font: 60px $font-stack;
+      margin: 0px;
+      line-height: 55px;
+    }
+
+    .gray {
+      color: $progress-font-secondary-color;
+      @include transition(all, 2s, ease, 2s);
+    }
+
+    small {
+      font: 8px;
+    }
+  }
+}
+
+#progress.in {
+  -webkit-transform: perspective(1300) translateY(-150px) rotateX(90deg);
+  -webkit-transform-origin: 0% 10%;
+}
+#progress.done {
+  background: $main-background-color;
+
+
+
+
+  .gray {
+    color: $main-font-secondary-color;
+  }
+}
+.arena {
+  opacity: 0;
+  color: #fff;
+
+  @include transition(all, 2s, ease, 2s);
+
+  .left {
+    height: 100%;
+    width: 20%;
+    position: absolute;
+    margin-left: -300px;
+    z-index: 5;
+    @include transition(all, 1s, ease, 2s);
+
+
+  }
+  .btn {
+    color: #fff;
+  }
+
+  .main {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    .main-header {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 70px;
+      background: $arena-head-background;
+      .inner {
+        text-align: center;
+        vertical-align: bottom;
+        width: 200px;
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        margin-left: -100px;
+        i {
+          position: absolute;
+          top:-5px;
+          left: 50%;
+          margin-left: -14px;
+        }
+        h1 {
+          text-align: center;
+          font-size: 30px;
+          margin-top: 0px;
+
+          .gray {
+            color: $arena-font-secondary-color;
+          }
+        }
+
+      }
+    }
+    .box {
+      width: 90%;
+      top: 90px;
+      left: 5%;
+      padding: 0px 20px;
+      position: absolute;
+
+
+      text-align: center;
+
+      .box-head {
+        width: 100%;
+        height: 40px;
+        padding: 0px;
+
+        h1, h2, h3 {
+          margin: 0px;
+
+        }
+        .title {
+          color: $main-font-secondary-color;
+        }
+
+      }
+      .box-body{
+        h1, h2, h3, h4 {
+          margin: 0px;
+          padding: 10px 10px;
+          font-weight: 100;
+        }
+        h4 {
+          color: $arena-head-background;
+        }
+
+      }
+    }
+    .box-background {
+      background: #ffffff;
+      box-shadow: 2px 2px 5px #333;
+    }
+    .main-body {
+      .box {
+
+      .gm-profile-pic {
+        width: 170px;
+        height: 170px;
+
+        position: relative;
+
+      }
+        .small-pic {
+          width: 70px;
+          height: 70px;
+        }
+      .gm-profile-pic img{
+        z-index: 2;
+        position: relative;
+        border-radius: 150px;
+        -webkit-border-radius: 150px;
+
+      }
+      .fb-button {
+        background: $fb-button-color;
+
+      }
+      .procile-circle{
+        width: 120px;
+        height: 120px;
+        position: absolute;
+        top: 10px;
+        -moz-border-radius: 100px;
+        -webkit-border-radius: 100px;
+        border-radius: 100px;
+        opacity: 0.4;
+        margin: -60px 0 0 -10px;
+        background-size: 22px 32px;
+        background-color: #efefef;
+      }
+        .procile-circle-small{
+          width: 60px;
+          height: 60px;
+          position: absolute;
+          top: 10px;
+          -moz-border-radius: 50px;
+          -webkit-border-radius: 50px;
+          border-radius: 50px;
+          opacity: 0.4;
+          margin: -30px 0 0 -5px;
+          background-size: 22px 32px;
+          background-color: #efefef;
+        }
+      }
+      .inner {
+        text-align: center;
+        vertical-align: middle;
+        width: 200px;
+        height: 100px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -100px;
+        margin-top: -50px;
+      }
+    }
+  }
+}
+
+.arena.start {
+  opacity: 1;
+
+  .left {
+    background: $arena-background;
+    height: 100%;
+    margin-left: 15px;
+    position: absolute;
+  }
+}
+
+
+.main.done .gm-profile-pic {
+  -webkit-animation: wow 2s reverse;
+  animation: wow 2s reverse;
+  }
+
+
+.main-green {
+  background: $progress-background-color;
+}
+.main-red {
+  background: $arena-main-background;
+}
+.main-gray {
+  background: $arena-background;
+}
+.main-blue {
+  background: $main-background-color;
+}
+.main-yellow {
+  background: $leader-board-background;
+}
+.answers {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  padding: 10px;
+
+  li {
+
+    opacity: 0;
+    position: relative;
+    height: 50px;
+    width: 90%;
+
+    margin: 2px 5%;
+    padding: 5px 10px;
+
+
+    list-style: none;
+    text-align: center;
+    font-size: 20px;
+    a {
+      text-decoration: none;
+      color: #ffffff;
+    }
+    .answer-letter {
+      float: left;
+      padding: 10px 20px;
+      margin: -5px -10px;
+      background: $arena-main-background;
+    }
+    .answer-text {
+      font-size: 0.6em;
+      text-align: left;
+      text-indent: 20px;
+      word-wrap: break-word;
+      padding: 3px 10px;
+    }
+  }
+  li.checked {
+    background: $arena-answer-color;
+    color: #ffffff;
+  }
+  li.disabled {
+    opacity: 0.4;
+  }
+  input {
+    display: none;
+  }
+}
+
+.leadrboard {
+  background: $arena-background;
+  max-width: 400px;
+  margin: 0px auto;
+  td {
+    padding: 3px 10px;
+  }
+  tr:nth-child(odd) {
+    background: $arena-head-background;
+  }
+}
+/*** EXTRA ***/
+.fa-10x {
+  font-size: 50px;
+}
+.btn {
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+}
+.btn-page-bottom {
+  position: absolute;
+  bottom: 10px;
+  margin-left: -30%;
+}
+.btn-block {
+  width: 80%;
+  margin: 0px 10%;
+}
+.btn-page-bottom2 {
+  position: absolute;
+  bottom: 50px;
+}
+.btn-left {
+  float: left;
+  padding: 20px;
+}
+.btn-twitter {
+  color: #FFF;
+  background-color: $twitter-button-color;
+  border-color: $twitter-button-color;
+}
+.btn-twitter:hover, .btn-twitter:focus, .btn-twitter:active, .btn-twitter.active, .open .dropdown-toggle.btn-twitter {
+  color: #FFF;
+  background-color: lighten($twitter-button-color, 10%);
+  border-color: lighten($twitter-button-color, 10%);
+}
+.btn-facebook {
+  color: #FFF;
+  background-color: $fb-button-color;
+  border-color: $fb-button-color;
+}
+  .btn-facebook:hover, .btn-facebook:focus, .btn-facebook:active, .btn-facebook.active, .open .dropdown-toggle.btn-facebook {
+    color: #FFF;
+    background-color: lighten($fb-button-color, 10%);
+    border-color: lighten($fb-button-color, 10%);
+  }
+
+
+.input-lg {
+  max-width: 200px;
+}
+hr {
+  width: 20%;
+  color: #333333;
+  border-color: #777777;
+  margin: 0px auto;
+}
+.btn:hover:not(.btn-danger) {
+  -webkit-transform: scale(1.5);
+  transform: scale(1.5);
+  transition: all 0.3s ease forward;
+  -wekit-transition: all 0.5s ease forward;
+}
+

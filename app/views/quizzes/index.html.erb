@@ -1,0 +1,127 @@
+<div id="progress" class="fade in">
+  <div class="inner">
+    <i class="fa fa-magic fa-10x"></i>
+    <h1>Quiz<span class="gray">zard</span></h1>
+    <small>Powered by Gamaroff Digital</small>
+  </div>
+</div>
+
+<div class="arena init row">
+  <div class="main main-blue">
+    <div class="main-header">
+      <div class="inner">
+        <i class="fa fa-magic"></i>
+        <h1>Quiz<span class="gray">zard</span></h1>
+      </div>
+      <a class="btn btn-left" href="#" onclick="javascript:FB.logout()"><i class="fa fa-power-off fa-2x"></i></a>
+    </div>
+    <div class="main-body">
+      <div class="box">
+
+        <div class="box-body">
+            <span class="gm-profile-pic">
+            <span class="procile-circle-small"></span>
+
+              <%= image_tag('avatar_placeholder.svg',id: 'user-avatar', width: 50, height: 50) %>
+        </span>
+          <br>
+          <br>
+          <h4 id="nickname"><%= @nickname %></h4>
+          <br>
+          <%= link_to "Ready? <i class='count-down'>10</i>".html_safe, "#", :id =>'iamready', :class => 'btn btn-danger' %>
+          <br>
+          <br>
+
+          <h3 id="waitplayers">Waiting for <strong>Players</strong></h3>
+          <br>
+          <hr>
+          <br>
+          <i class="fa fa-spinner fa-spin fa-2x"></i>
+          <br>
+          <div class="players">
+            <div class="player-pic">
+              <%= image_tag('avatar_placeholder.svg',id: 'player1-avatar', width: 50, height: 50) %>
+              <br>
+              <label id="player1-label">Player 3</label>
+            </div>
+            <div class="player-pic">
+              <%= image_tag('avatar_placeholder.svg',id: 'player2-avatar', width: 50, height: 50) %>
+              <br>
+              <label id="player2-label">Player 3</label>
+            </div>
+            <div class="player-pic">
+              <%= image_tag('avatar_placeholder.svg',id: 'player3-avatar', width: 50, height: 50) %>
+              <br>
+              <label id="player3-label">Player 3</label>
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+
+<script>
+
+    $(document).ready( function(){
+        $(".main").delay(2000).addClass("done");
+        $.ajaxSetup({ cache:false })
+
+        $("#iamready").on('click', function(ev){
+            ev.preventDefault();
+            $(this).addClass("btn-success").removeClass("btn-danger").html("I am Ready!");
+            $(".main").addClass('main-red').removeClass("main-blue");
+            setTimeout(function(){
+
+                var player = 1;
+                $('.player-pic').each( function(){
+                    var req = $.ajax({
+                        url: 'http://api.randomuser.me/',
+                        dataType: 'json',
+                        cache: false,
+                        success: function(data){
+                            req = null;
+                            //$(this).html(data.results[0].user.username).fadeTo("fast", 1);
+                            console.log(data.results[0].user.picture)
+
+                            $("#player"+player+"-avatar").attr('src', data.results[0].user.picture);
+                            $("#player"+player+"-label").html(data.results[0].user.username).fadeTo(300, 1);
+                            player++;
+                            if (player == 3) {
+                                $("#waitplayers").html('Players are <strong>Ready!</strong>')
+                                $(".fa-spinner").detach();
+
+                                setTimeout(function(){
+                                    window.location.href = '<%= quizzes_path %>/start';
+                                },1500);
+                            }
+                        }
+                    });
+
+                })
+
+
+
+
+            },1000);
+            return false;
+        })
+        var c = 10;
+        setInterval(function () {
+            if (c>0) {
+                c--;
+                $(".count-down").html(c);
+            }
+            (c==0)?$(".count-down").parent().attr("disabled", "disabled").addClass('disabled'):'';
+        }, 1000);
+
+        //test timer
+
+    })
+</script>

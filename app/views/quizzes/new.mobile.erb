@@ -1,0 +1,40 @@
+<div class="arena init row">
+  <div class="main done main-gray">
+    <div class="main-header">
+      <div class="inner">
+        <i class="fa fa-magic"></i>
+        <h1>Quiz<span class="gray">zard</span></h1>
+      </div>
+      <a class="btn btn-left slideinleft" href="#" onclick="FB.logout()"><i class="fa fa-power-off fa-2x"></i></a>
+    </div>
+    <div class="main-body">
+      <div class="box box-background">
+          <div class="box-head">
+            <p class="title">Question <%= @current %> of <%= @total %></p>
+            <hr>
+          </div>
+          <div class="box-body">
+            <h4>
+              <%= @question.body %>
+            </h4>
+          </div>
+      </div>
+
+      <ul class="answers">
+        <% @choices.each_with_index do |choice, index| %>
+            <% unless choice.blank? %>
+                <li class="btn btn-danger slideinleft-answer<%= index %>">
+                    <%= link_to(new_quiz_path(:questions => params[:questions].merge(@current => index) )) do %>
+                      <div class="answer-letter"><%= @letters[index] %></div>
+                        <div class="answer-text"><%= choice %></div>
+                    <% end %>
+                </li>
+            <% end %>
+        <% end %>
+      </ul>
+  </div>
+  <div class="clearfix"></div>
+</div>
+</div>
+
+

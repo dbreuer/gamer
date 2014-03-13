@@ -1,0 +1,89 @@
+// Place all the styles related to the hall controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+$font-stack:    "Hammersmith One", sans-serif;
+
+$progress-background-color: #44c785;
+$progress-font-color: #c6eedb;
+$progress-font-secondary-color: #6ad29d;
+
+$main-background-color: #12aafd;
+$main-font-secondary-color: #3ebbff;
+
+
+$arena-background: #373737;
+$arena-head-background: #222222;
+$arena-main-background: #b64743;
+
+$arena-font-secondary-color: #666666;
+
+$arena-answer-color: #12aafd;
+
+$fb-button-color: #435f9b;
+
+@mixin transition($transition-property, $transition-time, $method, $transition-delay) {
+  -webkit-transition: $transition-property $transition-time $method $transition-delay;
+  -moz-transition: $transition-property $transition-time $method $transition-delay;
+  -ms-transition: $transition-property $transition-time $method $transition-delay;
+  -o-transition: $transition-property $transition-time $method $transition-delay;
+  transition: $transition-property $transition-time $method $transition-delay;
+}
+
+
+.arena.init {
+  opacity: 1;
+  .main {
+
+    .main-header {
+
+    }
+    .main-body {
+
+      .box{
+
+        h2, h3, h4 {
+          font-weight: 100;
+        }
+        input,input[type="password"], input[type="search"], isindex {
+          background-color: $arena-background;
+          border: none;
+          border-radius: 0px;
+          -webkit-border-radius: 0px;
+          color: #ffffff;
+        }
+        #symbol {
+          width: 20px;
+          margin-left: -5px;
+          padding: 0px;
+          color: lightgreen;
+        }
+        .box-body {
+          .players {
+            position: relative;
+            .player-pic {
+              width: 30%;
+              margin: 1.5%;
+              float: left;
+              img {
+                border-radius: 25px;
+                -webkit-border-radius: 25px;
+              }
+              label {
+                opacity: 0;
+                font-weight: 100;
+                font-size: 8px;
+              }
+            }
+            .player-pic.active {
+              label {
+                opacity: 1;
+              }
+
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
